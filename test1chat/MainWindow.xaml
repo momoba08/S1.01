@@ -30,7 +30,7 @@
             Orientation="Horizontal">
             <TextBlock FontSize="16" Text="Score : " />
             <TextBlock
-                Name="ScoreText"
+                x:Name="ScoreText"
                 FontSize="16"
                 Text="0" />
             <TextBlock
@@ -38,7 +38,7 @@
                 FontSize="16"
                 Text=" | Vitesse : " />
             <TextBlock
-                Name="SpeedText"
+                x:Name="SpeedText"
                 FontSize="16"
                 Text="0" />
             <Button
