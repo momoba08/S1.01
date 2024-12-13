@@ -8,4 +8,46 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="img\antiquité1.jpg" />
+    <None Remove="img\marteau.png" />
+    <None Remove="img\mountains.png" />
+    <None Remove="img\moyenage1.jpg" />
+    <None Remove="img\moyenage2.jpg" />
+    <None Remove="img\pyramidejour.jpg" />
+    <None Remove="img\pyramidnuit.jpg" />
+    <None Remove="img\train.jpg" />
+    <None Remove="img\troi2.jpg" />
+    <None Remove="img\troie.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\antiquité1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\marteau.png" />
+    <Resource Include="img\mountains.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moyenage1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moyenage2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\pyramidejour.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\pyramidnuit.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\train.jpg" />
+    <Resource Include="img\troi2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\troie.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>
