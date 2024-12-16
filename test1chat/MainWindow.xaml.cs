@@ -25,17 +25,71 @@ namespace test1chat
         private DispatcherTimer temps_sec;
         private bool gauche, droite;
         private static BitmapImage train;
+        private BitmapImage marteau ;
         private static readonly int Pas_train = 2;
         private static readonly int Pas_vertical = 5;
-        private int temps = 60;
+        private int temps = 60, image = 1;
         private double energie = 100;
+        private int nb_obstacle = 5;
+        private Image[] lesobstacles;
+        private Random random = new Random();
+
         public MainWindow()
         {
             InitializeComponent();
             InitTimer();
+            //this.Loaded += Window_Loaded;
+            InitObstacles();
             
             
         }
+
+       // private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
+       //     InitObstacles();
+       // }
+
+      
+
+        private void InitObstacles()
+        {
+            //BitmapImage marteau;
+
+            BitmapImage marteau = new BitmapImage(new Uri("pack://application:,,,/img/marteau.png"));
+
+            lesobstacles = new Image[nb_obstacle];
+            for (int i = 0; i < lesobstacles.Length; i++)
+
+            {
+                lesobstacles[i]= new Image
+                {
+                    Width = 50,
+                    Height = 50,
+                    Source = marteau
+                };
+
+                epoque.Children.Add(lesobstacles[i]);
+                Canvas.SetLeft(lesobstacles[i], random.Next(0, (int)this.ActualWidth+50));
+                Canvas.SetTop(lesobstacles[i], -random.Next(0, (int)this.ActualWidth+50));
+            }
+        }
+
+        private void DeplacementObstacles()
+        {
+            for (int i = 0; i < lesobstacles.Length; ++i)
+            {
+                double currentLeft = Canvas.GetLeft(lesobstacles[i]);
+                Canvas.SetLeft(lesobstacles[i], currentLeft - Pas_vertical);
+
+                if (currentLeft < -lesobstacles[i].Width)
+                {
+                    Canvas.SetLeft(lesobstacles[i], this.ActualWidth + random.Next(100,300));
+                    Canvas.SetTop(lesobstacles[i], random.Next(0, (int)(epoque.ActualHeight - lesobstacles[i].Height)));
+                }
+            }
+
+        }
+     
 
         private void InitTimer()
         {
@@ -52,7 +106,7 @@ namespace test1chat
         private void ChangeTemps(object? sender, EventArgs e)
         {
             temps--;
-            labTps.Content = temps + "s";
+            labTps.Content = temps + " s";
             
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -77,55 +131,29 @@ namespace test1chat
 
         private void Jeutrain(object? sender, EventArgs e)
         {
-            Canvas.SetLeft(trainex, Canvas.GetLeft(trainex) + Pas_train);            
+            Canvas.SetLeft(trainex, Canvas.GetLeft(trainex) + Pas_train);
             if (Canvas.GetLeft(trainex) > this.ActualWidth)
-                Canvas.SetLeft(trainex, -trainex.Width);
-
-            energie -= 0.025;
-            enrg.Content = (int)energie + "%";
-
-        }
-        private void runSprite(double i)
-        {
-            // this is the run sprite function, this function takes one argument inside its brackets
-            // it takes a double variable called i
-            // we will use this i to change the images for the player
-            // below is the switch statement that will change the player sprite
-
-
-            // when the i value changes between 1 and 8 it will assign appropriate sprite to the player sprite
-            switch (i)
             {
-                case 1:
-                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/newRunner_01.gif"));
-                    break;
-                case 2:
-                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/newRunner_02.gif"));
-                    break;
-                case 3:
-                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/newRunner_03.gif"));
-                    break;
-                case 4:
-                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/newRunner_04.gif"));
-                    break;
-                case 5:
-                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/newRunner_05.gif"));
-                    break;
-                case 6:
-                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/newRunner_05.gif"));
-                    break;
-                case 7:
-                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/newRunner_07.gif"));
-                    break;
-                case 8:
-                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/newRunner_08.gif"));
-                    break;
+               
+                     
+                Canvas.SetLeft(trainex, -trainex.Width);
+            }      
+            energie -= 0.025;
+            enrg.Content = (int)energie + " %";
+
+            DeplacementObstacles();
+            if (temps <= 0 || energie <= 0)
+            {
+                minuterie.Stop();
+                temps_sec.Stop();
+                MessageBox.Show("game over !");
             }
-            // finally assign the player rectangle to the player sprite
-            player.Fill = playerSprite;
+               
+                    
+
         }
 
-
+  
 
     }
 }
