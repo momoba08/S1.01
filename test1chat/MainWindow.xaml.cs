@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Net.Sockets;
 using System.Numerics;
 using System.Security.Policy;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace test1chat
 {
@@ -26,34 +29,28 @@ namespace test1chat
         private bool gauche, droite;
         private static BitmapImage train;
         private BitmapImage marteau ;
-        private static readonly int Pas_train = 2;
-        private static readonly int Pas_vertical = 5;
+        private static readonly int Pas_train = 3;
+        private static readonly double Pas_vertical = 3.5;
         private int temps = 60, image = 1;
         private double energie = 100;
-        private int nb_obstacle = 5;
+        private int nb_obstacle = 4;
         private Image[] lesobstacles;
         private Random random = new Random();
+     
 
         public MainWindow()
         {
             InitializeComponent();
             InitTimer();
-            //this.Loaded += Window_Loaded;
             InitObstacles();
-            
-            
         }
 
-       // private void Window_Loaded(object sender, RoutedEventArgs e)
-        //{
-       //     InitObstacles();
-       // }
-
-      
+       
+         
+ 
 
         private void InitObstacles()
-        {
-            //BitmapImage marteau;
+        {           
 
             BitmapImage marteau = new BitmapImage(new Uri("pack://application:,,,/img/marteau.png"));
 
@@ -148,6 +145,7 @@ namespace test1chat
                 temps_sec.Stop();
                 MessageBox.Show("game over !");
             }
+
                
                     
 
